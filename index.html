@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Porwal Glass Industries - Premium Glassware & Kitchenware</title>
-    <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -13,61 +12,133 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f8f9fa;
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #f093fb;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --bg-light: #f8f9fa;
+            --bg-white: #ffffff;
+            --border-color: #dfe6e9;
+            --success-color: #00b894;
+            --warning-color: #fdcb6e;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+            --shadow-lg: 0 8px 24px rgba(102, 126, 234, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+        }
+
+        /* HEADER STYLES */
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
-            padding: 2rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 3rem 0 2rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
         }
 
         .header-content {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            position: relative;
+            z-index: 1;
         }
 
         .header-title {
-            font-size: 2.5rem;
-            font-weight: bold;
+            font-size: 3rem;
+            font-weight: 700;
             margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+            text-shadow: 2px 4px 8px rgba(0,0,0,0.1);
         }
 
         .header-subtitle {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             opacity: 0.95;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
         }
 
         .header-features {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            flex-wrap: wrap;
             font-size: 0.95rem;
         }
 
         .feature-item {
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            align-items: flex-start;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .feature-item i {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
+            margin-top: 0.2rem;
+            flex-shrink: 0;
         }
 
+        .feature-item span {
+            line-height: 1.4;
+        }
+
+        /* CONTAINER */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
+        /* SECTION TITLES */
+        .section-title {
+            text-align: center;
+            color: var(--text-dark);
+            margin: 4rem 0 3rem;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* CATEGORIES SECTION */
         .categories {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -76,227 +147,767 @@
         }
 
         .category-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            background: var(--bg-white);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 0;
         }
 
         .category-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+
+        .category-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .category-card > * {
+            position: relative;
+            z-index: 1;
         }
 
         .category-card h3 {
-            color: #667eea;
-            margin-bottom: 0.5rem;
-            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .category-card h3 i {
+            margin-right: 0.5rem;
         }
 
         .category-card p {
-            color: #666;
+            color: var(--text-light);
             margin-bottom: 1rem;
+            line-height: 1.6;
         }
 
         .badge {
             display: inline-block;
-            background: #667eea;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 0.5rem 1rem;
+            padding: 0.6rem 1.2rem;
             border-radius: 20px;
             font-size: 0.85rem;
-            font-weight: bold;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
         }
 
+        /* PRODUCTS SECTION */
         .products-section {
-            margin: 3rem 0;
+            margin: 4rem 0;
+            padding: 3rem 0;
+            background: var(--bg-light);
+            border-radius: 16px;
+            padding: 3rem;
         }
 
-        .products-section h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 2rem;
-            font-size: 2rem;
+        .products-section:nth-child(even) {
+            background: var(--bg-white);
         }
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 2rem;
         }
 
         .product-card {
-            background: white;
-            border-radius: 10px;
+            background: var(--bg-white);
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
         }
 
         .product-img {
             width: 100%;
-            height: 250px;
+            height: 280px;
             object-fit: cover;
-            background: #f0f0f0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.05);
         }
 
         .product-info {
             padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
         }
 
         .product-info h4 {
-            color: #333;
+            color: var(--text-dark);
             margin-bottom: 0.5rem;
-            font-size: 1rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            line-height: 1.3;
         }
 
         .product-info p {
-            color: #666;
+            color: var(--text-light);
             font-size: 0.9rem;
             margin-bottom: 1rem;
+            line-height: 1.5;
+            flex-grow: 1;
         }
 
         .product-code {
-            font-weight: bold;
-            color: #667eea;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
         }
 
         .btn-enquire {
-            background: #667eea;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             border: none;
-            padding: 0.7rem 1.5rem;
-            border-radius: 5px;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 0.9rem;
-            transition: background 0.3s;
+            font-weight: 600;
+            transition: var(--transition);
             width: 100%;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
         }
 
         .btn-enquire:hover {
-            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
 
-        .section-title {
-            text-align: center;
-            color: #333;
-            margin: 3rem 0 2rem;
-            font-size: 1.8rem;
-            font-weight: bold;
+        .btn-enquire:active {
+            transform: translateY(0);
         }
 
+        /* ABOUT SECTION */
         .about-section {
-            background: white;
-            padding: 3rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin: 3rem 0;
+            background: var(--bg-white);
+            padding: 3.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            margin: 4rem 0;
+            border-left: 6px solid var(--primary-color);
         }
 
         .about-section h2 {
-            color: #333;
-            margin-bottom: 1rem;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            font-weight: 700;
         }
 
         .about-section p {
-            color: #666;
-            margin-bottom: 1rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
             line-height: 1.8;
+            font-size: 1rem;
         }
 
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 2rem;
-            margin: 2rem 0;
+            margin-top: 2.5rem;
+            padding-top: 2.5rem;
+            border-top: 2px solid var(--border-color);
         }
 
         .stat-item {
             text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(240, 147, 251, 0.05));
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
         }
 
         .stat-number {
             font-size: 2.5rem;
-            color: #667eea;
-            font-weight: bold;
+            color: var(--primary-color);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 0.5rem;
         }
 
         .stat-label {
-            color: #666;
-            font-size: 1rem;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
         }
 
-        footer {
-            background: #333;
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            margin-top: 3rem;
-        }
-
+        /* CONTACT SECTION */
         .contact-section {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin: 3rem 0;
+            background: var(--bg-white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            margin: 4rem 0;
+            border-top: 6px solid var(--primary-color);
+        }
+
+        .contact-section h2 {
+            color: var(--text-dark);
+            margin-bottom: 3rem;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
         }
 
         .contact-methods {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
         }
 
         .contact-method {
             text-align: center;
-            padding: 1.5rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(240, 147, 251, 0.05));
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .contact-method:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
         }
 
         .contact-method i {
-            font-size: 2.5rem;
-            color: #667eea;
+            font-size: 3rem;
+            color: var(--primary-color);
             margin-bottom: 1rem;
+            display: inline-block;
         }
 
         .contact-method h4 {
-            color: #333;
-            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            font-weight: 600;
         }
 
         .contact-method p {
-            color: #666;
+            color: var(--text-light);
+            margin: 0.5rem 0;
         }
 
+        /* FOOTER */
+        footer {
+            background: linear-gradient(135deg, var(--text-dark) 0%, #1a1a2e 100%);
+            color: white;
+            padding: 2.5rem;
+            text-align: center;
+            margin-top: 4rem;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            line-height: 1.6;
+        }
+
+        footer p:first-child {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* RESPONSIVE */
         @media (max-width: 768px) {
             .header-title {
-                font-size: 1.8rem;
+                font-size: 2rem;
+            }
+
+            .header-subtitle {
+                font-size: 1rem;
             }
 
             .header-features {
-                flex-direction: column;
-                gap: 0.5rem;
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .feature-item {
+                padding: 0.8rem 1rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+                margin: 2.5rem 0 2rem;
             }
 
             .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .product-img {
+                height: 220px;
+            }
+
+            .about-section,
+            .contact-section,
+            .products-section {
+                padding: 1.5rem;
+            }
+
+            .categories {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-item {
+                padding: 1rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-title {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
                 gap: 1rem;
             }
+
+            .product-img {
+                height: 180px;
+            }
+
+            .contact-methods {
+                grid-template-columns: 1fr;
+            }
+
+            .header-features {
+                gap: 0.8rem;
+            }
+
+            .feature-item {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* SCROLL EFFECTS & ANIMATIONS */
+        .products-card {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes countUp {
+            from {
+                content: '0';
+            }
+            to {
+                content: attr(data-value);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* FLOATING WHATSAPP BUTTON */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .whatsapp-float:hover {
+            background-color: #20ba58;
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(37, 211, 102, 0.4);
+        }
+
+        /* STICKY HEADER */
+        header.sticky {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 99;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            animation: slideDown 0.4s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        body.header-sticky {
+            padding-top: 120px;
+        }
+
+        /* HAMBURGER MENU */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 101;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 5px 0;
+            transition: 0.3s;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-7px, -6px);
+        }
+
+        /* PRODUCT CARD ANIMATIONS */
+        .product-card {
+            background: var(--bg-white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .product-card:nth-child(1) { animation-delay: 0.1s; }
+        .product-card:nth-child(2) { animation-delay: 0.15s; }
+        .product-card:nth-child(3) { animation-delay: 0.2s; }
+        .product-card:nth-child(n+4) { animation-delay: 0.25s; }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.08);
+        }
+
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(102, 126, 234, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+
+        .product-card:hover .product-overlay {
+            opacity: 1;
+        }
+
+        /* HERO BANNER */
+        .hero-banner {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 4rem 2rem;
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            animation: slideInLeft 0.8s ease;
+        }
+
+        .hero-banner p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: slideInLeft 0.8s ease 0.2s backwards;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: 2px solid white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            animation: slideInLeft 0.8s ease 0.4s backwards;
+        }
+
+        .hero-cta:hover {
+            background: white;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* STAT COUNTER ANIMATION */
+        .stat-number {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            transition: all 0.6s ease;
+        }
+
+        .stat-item.in-view .stat-number {
+            animation: countUp 1s ease;
+        }
+
+        /* SCROLL REVEAL */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.6s cubic-bezier(0.33, 0.66, 0.66, 1);
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* CATEGORY CARD ANIMATIONS */
+        .category-card {
+            background: var(--bg-white);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            header.sticky {
+                padding: 0.5rem 0;
+            }
+
+            body.header-sticky {
+                padding-top: 80px;
+            }
+
+            .header-title {
+                font-size: 2rem;
+            }
+
+            .header-subtitle {
+                font-size: 1rem;
+            }
+
+            .header-features {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .feature-item {
+                padding: 0.8rem 1rem;
+            }
+
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 24px;
+            }
+
+            .hero-banner h2 {
+                font-size: 1.5rem;
+            }
+
+            .hero-banner p {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-title {
+                font-size: 1.5rem;
+            }
+
+            .whatsapp-float {
+                width: 45px;
+                height: 45px;
+                bottom: 15px;
+                right: 15px;
+                font-size: 20px;
+            }
+
+            .hero-banner {
+                padding: 2rem 1rem;
+            }
+
+            .hero-banner h2 {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* UTILITY CLASSES */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-4 {
+            margin-top: 2rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 2rem;
         }
     </style>
 </head>
 <body>
     <!-- Header -->
     <header>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         <div class="header-content">
             <h1 class="header-title">Porwal Glass Industries</h1>
             <p class="header-subtitle">Since 2009 - Trusted Glassware Supplier</p>
@@ -313,10 +924,19 @@
         </div>
     </header>
 
+    <!-- Hero Banner -->
+    <section class="container">
+        <div class="hero-banner">
+            <h2>Premium Quality Glassware & Kitchenware</h2>
+            <p>Trusted by thousands of customers across India. Bulk orders welcome with special discounts!</p>
+            <button class="hero-cta" onclick="scrollToCategories()">Explore Products</button>
+        </div>
+    </section>
+
     <!-- Categories Overview -->
     <section class="container">
-        <h2 class="section-title">Browse our complete range of premium glassware and kitchenware across four main categories</h2>
-        <div class="categories">
+        <h2 class="section-title">Browse our complete range of premium glassware and kitchenware</h2>
+        <div class="categories" id="categories">
             <div class="category-card">
                 <h3><i class="fas fa-wine-glass-alt"></i> Glassware</h3>
                 <p class="badge">50+ Products</p>
@@ -344,7 +964,6 @@
     <section class="container products-section">
         <h2 class="section-title">GLASSWARE - Premium Glass Products</h2>
         <div class="products-grid">
-            <!-- Glassware Products -->
             <div class="product-card">
                 <img src="./images/Tumbler.png" alt="Versatile glass tumbler for daily use" class="product-img" loading="lazy">
                 <div class="product-info">
@@ -616,10 +1235,10 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Oil-Dispenser.png" alt="Glass bottle for oil & vinegar" class="product-img" loading="lazy">
+                <img src="./images/Oil-Dispenser.png" alt="Glass oil dispenser bottle" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Oil Dispenser</h4>
-                    <p>Glass bottle for oil & vinegar</p>
+                    <p>Glass oil dispenser bottle</p>
                     <div class="product-code">Code: G-045</div>
                     <button class="btn-enquire" onclick="enquirePrice('G-045', 'Oil Dispenser')">Enquire Price</button>
                 </div>
@@ -646,20 +1265,20 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Syrup-Dispenser.png" alt="Glass bottle for oil & vinegar" class="product-img" loading="lazy">
+                <img src="./images/Syrup-Dispenser.png" alt="Glass syrup dispenser bottle" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Syrup Dispenser</h4>
-                    <p>Glass bottle for oil & vinegar</p>
+                    <p>Glass syrup dispenser bottle</p>
                     <div class="product-code">Code: G-045</div>
                     <button class="btn-enquire" onclick="enquirePrice('G-045', 'Syrup Dispenser')">Enquire Price</button>
                 </div>
             </div>
 
             <div class="product-card">
-                <img src="./images/Gravy-Boat.png" alt="Glass shaker for salt & condiments" class="product-img" loading="lazy">
+                <img src="./images/Gravy-Boat.png" alt="Glass gravy serving boat" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Gravy Boat</h4>
-                    <p>Glass shaker for salt & condiments</p>
+                    <p>Glass gravy serving boat</p>
                     <div class="product-code">Code: G-050</div>
                     <button class="btn-enquire" onclick="enquirePrice('G-050', 'Gravy Boat')">Enquire Price</button>
                 </div>
@@ -696,10 +1315,10 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Glass-Teapot.png" alt="Opal glass teapot with lid" class="product-img" loading="lazy">
+                <img src="./images/Glass-Teapot.png" alt="Glass teapot with lid" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Glass Teapot</h4>
-                    <p>Opal glass teapot with lid</p>
+                    <p>Glass teapot with lid</p>
                     <div class="product-code">Code: O-008</div>
                     <button class="btn-enquire" onclick="enquirePrice('O-008', 'Glass Teapot')">Enquire Price</button>
                 </div>
@@ -732,7 +1351,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Side-Plate.png" alt="Opal glass side/bread plate" class="product-img" loading="lazy">
+                <img src="./images/Side-Plate.png" alt="Opal glass side plate" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Side Plate</h4>
                     <p>Opal glass side/bread plate</p>
@@ -742,7 +1361,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Soup-Bowl.png" alt="Opal glass soup/curry bowl" class="product-img" loading="lazy">
+                <img src="./images/Soup-Bowl.png" alt="Opal glass soup bowl" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Soup Bowl</h4>
                     <p>Opal glass soup/curry bowl</p>
@@ -752,7 +1371,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Grey-Bowl.png" alt="Textured granite-finish glass bowl" class="product-img" loading="lazy">
+                <img src="./images/Grey-Bowl.png" alt="Grey textured glass bowl" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Grey Bowl</h4>
                     <p>Textured granite-finish glass bowl</p>
@@ -762,7 +1381,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Teal-Plate.png" alt="Opal glass cereal/dessert bowl" class="product-img" loading="lazy">
+                <img src="./images/Teal-Plate.png" alt="Teal colored plate" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Teal Plate</h4>
                     <p>Opal glass cereal/dessert bowl</p>
@@ -782,7 +1401,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Terrocatta-Bowl.png" alt="Large opal glass pasta/serving bowl" class="product-img" loading="lazy">
+                <img src="./images/Terrocatta-Bowl.png" alt="Terracotta glass bowl" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Terracotta Bowl</h4>
                     <p>Large opal glass pasta/serving bowl</p>
@@ -792,7 +1411,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Storage-Jar.png" alt="Opal glass salad serving bowl" class="product-img" loading="lazy">
+                <img src="./images/Storage-Jar.png" alt="Glass storage jar" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Storage Jar</h4>
                     <p>Opal glass salad serving bowl</p>
@@ -802,7 +1421,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Bath-Mug.png" alt="Opal glass coffee/tea mug" class="product-img" loading="lazy">
+                <img src="./images/Bath-Mug.png" alt="Opal glass coffee mug" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Bath Mug</h4>
                     <p>Opal glass coffee/tea mug</p>
@@ -812,7 +1431,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Cake-Stand.png" alt="Pedestal cake display stand" class="product-img" loading="lazy">
+                <img src="./images/Cake-Stand.png" alt="Pedestal cake stand" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Cake Stand</h4>
                     <p>Pedestal cake display stand</p>
@@ -822,7 +1441,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Bread-Basket.png" alt="Decorative opal glass bread basket" class="product-img" loading="lazy">
+                <img src="./images/Bread-Basket.png" alt="Glass bread basket" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Bread Basket</h4>
                     <p>Decorative opal glass bread basket</p>
@@ -832,7 +1451,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Butter-Dish.png" alt="Opal glass butter dish with lid" class="product-img" loading="lazy">
+                <img src="./images/Butter-Dish.png" alt="Glass butter dish" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Butter Dish</h4>
                     <p>Opal glass butter dish with lid</p>
@@ -842,7 +1461,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Gravy-Boat.png" alt="Opal glass sauce/gravy boat" class="product-img" loading="lazy">
+                <img src="./images/Gravy-Boat.png" alt="Glass gravy boat" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Gravy Boat</h4>
                     <p>Opal glass sauce/gravy boat</p>
@@ -852,7 +1471,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Cake-Dome.png" alt="Opal glass gravy boat with handle" class="product-img" loading="lazy">
+                <img src="./images/Cake-Dome.png" alt="Glass cake dome cover" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Cake Dome</h4>
                     <p>Opal glass gravy boat with handle</p>
@@ -868,7 +1487,7 @@
         <h2 class="section-title">PLASTIC KITCHENWARE - Storage & Utilities</h2>
         <div class="products-grid">
             <div class="product-card">
-                <img src="./images/Plastic-Food-Container-Rect.png" alt="Airtight plastic storage box" class="product-img" loading="lazy">
+                <img src="./images/Plastic-Food-Container-Rect.png" alt="Plastic food storage container" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Plastic Food Container</h4>
                     <p>Airtight plastic storage box</p>
@@ -878,7 +1497,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Plastic-Basin-Circular.png" alt="Large airtight storage container" class="product-img" loading="lazy">
+                <img src="./images/Plastic-Basin-Circular.png" alt="Plastic circular basin" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Plastic Basin</h4>
                     <p>Large airtight storage container</p>
@@ -888,7 +1507,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Plastic-Measuring-Jug.png" alt="4-piece plastic measuring cup set" class="product-img" loading="lazy">
+                <img src="./images/Plastic-Measuring-Jug.png" alt="Plastic measuring jug" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Plastic Measuring Jug</h4>
                     <p>4-piece plastic measuring cup set</p>
@@ -898,7 +1517,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Plastic-Colander-White.png" alt="Strainer for vegetables & pasta" class="product-img" loading="lazy">
+                <img src="./images/Plastic-Colander-White.png" alt="White plastic colander" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Plastic Colander</h4>
                     <p>Strainer for vegetables & pasta</p>
@@ -908,7 +1527,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Plastic-Water-Bottle.png" alt="BPA-free water bottle 1L" class="product-img" loading="lazy">
+                <img src="./images/Plastic-Water-Bottle.png" alt="Plastic water bottle" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Plastic Water Bottle</h4>
                     <p>BPA-free water bottle 1L</p>
@@ -918,7 +1537,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Plastic-Cutulery-Tray.png" alt="Drain caddy for spoons & utensils" class="product-img" loading="lazy">
+                <img src="./images/Plastic-Cutulery-Tray.png" alt="Plastic cutlery organizer tray" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Plastic Cutlery Tray</h4>
                     <p>Drain caddy for spoons & utensils</p>
@@ -928,7 +1547,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Plastic-Ceareal-Dispenser.png" alt="Plastic appetizer/relish tray" class="product-img" loading="lazy">
+                <img src="./images/Plastic-Ceareal-Dispenser.png" alt="Plastic cereal dispenser" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Plastic Cereal Dispenser</h4>
                     <p>Plastic appetizer/relish tray</p>
@@ -938,7 +1557,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Laundry-Basket.png" alt="Plastic woven laundry basket with handles" class="product-img" loading="lazy">
+                <img src="./images/Laundry-Basket.png" alt="Plastic laundry basket" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Laundry Basket</h4>
                     <p>Plastic woven laundry basket with handles</p>
@@ -948,7 +1567,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Plastic-Soap-Dish.png" alt="Plastic soap case with drainage holes" class="product-img" loading="lazy">
+                <img src="./images/Plastic-Soap-Dish.png" alt="Plastic soap dish" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Plastic Soap Dish</h4>
                     <p>Plastic soap case with drainage holes</p>
@@ -958,7 +1577,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Plastic-Pitcher.png" alt="Plastic pitcher" class="product-img" loading="lazy">
+                <img src="./images/Plastic-Pitcher.png" alt="Plastic pitcher jug" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Plastic Pitcher</h4>
                     <p>Plastic pitcher for beverages</p>
@@ -988,7 +1607,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Microwave-Cover.png" alt="Microwave cover" class="product-img" loading="lazy">
+                <img src="./images/Microwave-Cover.png" alt="Microwave food cover" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Microwave Cover</h4>
                     <p>Microwave cover for food protection</p>
@@ -998,7 +1617,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Microwave-Cover-Holed.png" alt="Microwave cover with holes" class="product-img" loading="lazy">
+                <img src="./images/Microwave-Cover-Holed.png" alt="Microwave cover with steam vents" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Microwave Cover Holed</h4>
                     <p>Microwave cover with steam vents</p>
@@ -1008,7 +1627,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Plastic-Dish-Rack.png" alt="Plastic dish rack" class="product-img" loading="lazy">
+                <img src="./images/Plastic-Dish-Rack.png" alt="Plastic dish drying rack" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Plastic Dish Rack</h4>
                     <p>Plastic dish drying rack</p>
@@ -1018,7 +1637,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Plastic-Dustbin.png" alt="Plastic dustbin" class="product-img" loading="lazy">
+                <img src="./images/Plastic-Dustbin.png" alt="Plastic waste bin" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Plastic Dustbin</h4>
                     <p>Plastic waste bin for kitchen</p>
@@ -1028,7 +1647,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Plastic-Ice-Tray.png" alt="Plastic ice tray" class="product-img" loading="lazy">
+                <img src="./images/Plastic-Ice-Tray.png" alt="Plastic ice cube tray" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Plastic Ice Tray</h4>
                     <p>Plastic ice cube tray</p>
@@ -1048,7 +1667,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Plastic-Funnel.png" alt="Plastic funnel" class="product-img" loading="lazy">
+                <img src="./images/Plastic-Funnel.png" alt="Plastic kitchen funnel" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Plastic Funnel</h4>
                     <p>Plastic funnel for pouring</p>
@@ -1058,7 +1677,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Plastic-Spice-Jar.png" alt="Plastic spice jar" class="product-img" loading="lazy">
+                <img src="./images/Plastic-Spice-Jar.png" alt="Plastic spice storage jar" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Plastic Spice Jar</h4>
                     <p>Plastic jar for spice storage</p>
@@ -1068,7 +1687,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Plastic-Egg-Holder.png" alt="Plastic egg holder" class="product-img" loading="lazy">
+                <img src="./images/Plastic-Egg-Holder.png" alt="Plastic egg storage holder" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Plastic Egg Holder</h4>
                     <p>Plastic egg storage holder</p>
@@ -1078,7 +1697,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Plastic-Fruit-Basket.png" alt="Plastic fruit basket" class="product-img" loading="lazy">
+                <img src="./images/Plastic-Fruit-Basket.png" alt="Plastic fruit storage basket" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Plastic Fruit Basket</h4>
                     <p>Plastic basket for fruit storage</p>
@@ -1088,7 +1707,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Plastic-Bread-Box.png" alt="Plastic bread box" class="product-img" loading="lazy">
+                <img src="./images/Plastic-Bread-Box.png" alt="Plastic bread storage box" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Plastic Bread Box</h4>
                     <p>Plastic container for bread storage</p>
@@ -1118,7 +1737,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Plastic-Hanger.png" alt="Plastic hanger" class="product-img" loading="lazy">
+                <img src="./images/Plastic-Hanger.png" alt="Plastic clothes hanger" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Plastic Hanger</h4>
                     <p>Plastic hanger for clothes</p>
@@ -1128,7 +1747,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Plastic-measuring-Spoons.png" alt="Plastic measuring spoons" class="product-img" loading="lazy">
+                <img src="./images/Plastic-measuring-Spoons.png" alt="Plastic measuring spoons set" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Plastic Measuring Spoons</h4>
                     <p>Plastic spoons for measuring</p>
@@ -1154,27 +1773,27 @@
         <h2 class="section-title">KITCHEN TOOLS & ACCESSORIES</h2>
         <div class="products-grid">
             <div class="product-card">
-                <img src="./images/Serving-Tongs.png" alt="Serving tongs" class="product-img" loading="lazy">
+                <img src="./images/Serving-Tongs.png" alt="Stainless steel serving tongs" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Serving Tongs</h4>
-                    <p>Serving tongs for food handling</p>
+                    <p>Stainless steel serving tongs</p>
                     <div class="product-code">Code: K-001</div>
                     <button class="btn-enquire" onclick="enquirePrice('K-001', 'Serving Tongs')">Enquire Price</button>
                 </div>
             </div>
 
             <div class="product-card">
-                <img src="./images/Measuring-Spoons.png" alt="Measuring spoons" class="product-img" loading="lazy">
+                <img src="./images/Measuring-Spoons.png" alt="Stainless steel measuring spoons" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Measuring Spoons</h4>
-                    <p>Set of measuring spoons</p>
+                    <p>Stainless steel measuring spoons set</p>
                     <div class="product-code">Code: K-002</div>
                     <button class="btn-enquire" onclick="enquirePrice('K-002', 'Measuring Spoons')">Enquire Price</button>
                 </div>
             </div>
 
             <div class="product-card">
-                <img src="./images/Kitchen-Funnel.png" alt="Kitchen funnel" class="product-img" loading="lazy">
+                <img src="./images/Kitchen-Funnel.png" alt="Stainless steel kitchen funnel" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Kitchen Funnel</h4>
                     <p>Stainless steel kitchen funnel</p>
@@ -1184,17 +1803,17 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Garlic-Press.png" alt="Garlic press" class="product-img" loading="lazy">
+                <img src="./images/Garlic-Press.png" alt="Stainless steel garlic press" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Garlic Press</h4>
-                    <p>Garlic press for mincing</p>
+                    <p>Stainless steel garlic press</p>
                     <div class="product-code">Code: K-004</div>
                     <button class="btn-enquire" onclick="enquirePrice('K-004', 'Garlic Press')">Enquire Price</button>
                 </div>
             </div>
 
             <div class="product-card">
-                <img src="./images/Vegetable-Peeler.png" alt="Vegetable peeler" class="product-img" loading="lazy">
+                <img src="./images/Vegetable-Peeler.png" alt="Vegetable peeler tool" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Vegetable Peeler</h4>
                     <p>Vegetable peeler tool</p>
@@ -1204,7 +1823,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Rolling-Pin.png" alt="Rolling pin" class="product-img" loading="lazy">
+                <img src="./images/Rolling-Pin.png" alt="Wooden rolling pin" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Rolling Pin</h4>
                     <p>Rolling pin for dough</p>
@@ -1224,7 +1843,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Pedal-Bin.png" alt="Pedal bin" class="product-img" loading="lazy">
+                <img src="./images/Pedal-Bin.png" alt="Pedal operated waste bin" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Pedal Bin</h4>
                     <p>Pedal operated waste bin</p>
@@ -1234,7 +1853,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Dustpan-Set.png" alt="Dustpan set" class="product-img" loading="lazy">
+                <img src="./images/Dustpan-Set.png" alt="Dustpan and brush set" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Dustpan Set</h4>
                     <p>Dustpan and brush set</p>
@@ -1244,7 +1863,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Dish-Drainer.png" alt="Dish drainer" class="product-img" loading="lazy">
+                <img src="./images/Dish-Drainer.png" alt="Dish drying rack" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Dish Drainer</h4>
                     <p>Dish draining tray</p>
@@ -1254,7 +1873,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Cutulery-Organizer.png" alt="Cutlery organizer" class="product-img" loading="lazy">
+                <img src="./images/Cutulery-Organizer.png" alt="Cutlery drawer organizer" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Cutlery Organizer</h4>
                     <p>Cutlery drawer organizer</p>
@@ -1264,7 +1883,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Basin-Tub.png" alt="Basin tub" class="product-img" loading="lazy">
+                <img src="./images/Basin-Tub.png" alt="Washing basin tub" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Basin Tub</h4>
                     <p>Washing basin tub</p>
@@ -1274,7 +1893,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Toothbrush-Holder.png" alt="Toothbrush holder" class="product-img" loading="lazy">
+                <img src="./images/Toothbrush-Holder.png" alt="Bathroom toothbrush holder" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Toothbrush Holder</h4>
                     <p>Bathroom toothbrush holder</p>
@@ -1284,7 +1903,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Soap-Case.png" alt="Soap case" class="product-img" loading="lazy">
+                <img src="./images/Soap-Case.png" alt="Bathroom soap case" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Soap Case</h4>
                     <p>Bathroom soap case</p>
@@ -1294,7 +1913,7 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Egg-Tray.png" alt="Egg tray" class="product-img" loading="lazy">
+                <img src="./images/Egg-Tray.png" alt="Egg storage and serving tray" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Egg Tray</h4>
                     <p>Egg storage and serving tray</p>
@@ -1333,25 +1952,25 @@
 
     <!-- Contact Section -->
     <section class="container contact-section">
-        <h2 style="text-align: center; margin-bottom: 2rem; color: #333;">Get In Touch</h2>
+        <h2>Get In Touch</h2>
         <div class="contact-methods">
             <div class="contact-method">
                 <i class="fas fa-phone"></i>
                 <h4>Phone Support</h4>
                 <p>+91 98371 77383</p>
-                <p style="font-size: 0.9rem; color: #999;">Quick Response</p>
+                <p style="font-size: 0.9rem;">Quick Response</p>
             </div>
             <div class="contact-method">
                 <i class="fas fa-comments"></i>
                 <h4>WhatsApp Support</h4>
                 <p>Quick messaging support</p>
-                <p style="font-size: 0.9rem; color: #999;">For faster response</p>
+                <p style="font-size: 0.9rem;">For faster response</p>
             </div>
             <div class="contact-method">
                 <i class="fas fa-envelope"></i>
                 <h4>Email Support</h4>
                 <p>Get in touch anytime</p>
-                <p style="font-size: 0.9rem; color: #999;">We respond within 24 hours</p>
+                <p style="font-size: 0.9rem;">We respond within 24 hours</p>
             </div>
         </div>
     </section>
@@ -1362,11 +1981,127 @@
         <p>Premium Glassware | Opal Glass Dinnerware | Melamine Crockery | Plastic Kitchenware</p>
     </footer>
 
+    <!-- Floating WhatsApp Button -->
+    <div class="whatsapp-float" onclick="openWhatsApp('General inquiry')" title="Chat with us on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+
     <script>
+        // SCROLL ANIMATIONS
+        function observeElements() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // Trigger stat counter animation
+                        if (entry.target.classList.contains('stat-item')) {
+                            animateCounters(entry.target);
+                        }
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.scroll-reveal').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Add scroll-reveal class to products on load
+        function initializeScrollReveals() {
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.classList.add('scroll-reveal');
+            });
+            document.querySelectorAll('.stat-item').forEach(stat => {
+                stat.classList.add('scroll-reveal');
+            });
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.classList.add('scroll-reveal');
+            });
+        }
+
+        // STICKY HEADER
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('sticky');
+                document.body.classList.add('header-sticky');
+            } else {
+                header.classList.remove('sticky');
+                document.body.classList.remove('header-sticky');
+            }
+        });
+
+        // HAMBURGER MENU
+        const hamburger = document.getElementById('hamburger');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+        });
+
+        // ANIMATE COUNTERS
+        function animateCounters(statElement) {
+            const counterElement = statElement.querySelector('.stat-number');
+            if (counterElement && !counterElement.dataset.animated) {
+                const text = counterElement.textContent;
+                if (text.includes('+')) {
+                    const num = parseInt(text);
+                    let current = 0;
+                    const increment = Math.ceil(num / 50);
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= num) {
+                            counterElement.textContent = text;
+                            clearInterval(timer);
+                        } else {
+                            counterElement.textContent = current + '+';
+                        }
+                    }, 30);
+                }
+                counterElement.dataset.animated = true;
+            }
+        }
+
+        // SCROLL TO CATEGORIES
+        function scrollToCategories() {
+            document.getElementById('categories').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // WHATSAPP INTEGRATION
+        function openWhatsApp(productName) {
+            const message = `Hi, I'm interested in your products and would like to know more about ${productName}.`;
+            const whatsappUrl = `https://wa.me/919837177383?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
         function enquirePrice(code, productName) {
             const message = `Hi, I'm interested in ${productName} (Code: ${code}). Please send me the pricing and availability details.`;
             const whatsappUrl = `https://wa.me/919837177383?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
+        }
+
+        // INITIALIZE ON PAGE LOAD
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeScrollReveals();
+            observeElements();
+        });
+
+        // LAZY LOAD IMAGES
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.classList.remove('lazy');
+                            imageObserver.unobserve(img);
+                        }
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+                imageObserver.observe(img);
+            });
         }
     </script>
 </body>

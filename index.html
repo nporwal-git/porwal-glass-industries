@@ -1113,7 +1113,7 @@
     <!-- HEADER -->
     <header>
         <div class="header-wrapper">
-            <a href="#" class="logo">PORWAL GLASS <span>INDUSTRIES</span></a>
+            <a href="#" class="logo">PORWAL&nbsp;GLASS&nbsp;<span>INDUSTRIES</span></a>
             <nav class="nav-menu" id="navMenu">
                 <li class="nav-item dropdown" id="categoriesDropdown">
                     <a href="#" class="nav-link dropdown-toggle" onclick="toggleDropdown(event)">Products</a>
@@ -1129,7 +1129,7 @@
             </nav>
             <div class="header-actions">
                 <div class="search-box">
-                    <input type="text" placeholder="Search products..." autocomplete="off">
+                    <input type="text" placeholder="Search products...">
                     <i class="fas fa-search"></i>
                 </div>
                 <div class="social-links">
@@ -2253,15 +2253,10 @@
 
         // Close menu when link is clicked
         document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', (e) => {
+            link.addEventListener('click', () => {
                 if (window.innerWidth <= 768) {
-                    // Only close menu if not a dropdown toggle
-                    if (!e.target.closest('.dropdown-toggle')) {
-                        setTimeout(() => {
-                            document.getElementById('navMenu').classList.remove('active');
-                            document.getElementById('hamburger').classList.remove('active');
-                        }, 100);
-                    }
+                    document.getElementById('navMenu').classList.remove('active');
+                    document.getElementById('hamburger').classList.remove('active');
                 }
             });
         });
@@ -2274,34 +2269,6 @@
                 dropdown.classList.toggle('active');
             }
         }
-
-        // Search functionality
-        const searchInput = document.querySelector('.search-box input');
-        const allProducts = document.querySelectorAll('.product-card');
-        
-        searchInput.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            
-            if (searchTerm.length === 0) {
-                // Show all products if search is empty
-                allProducts.forEach(product => {
-                    product.style.display = '';
-                });
-                return;
-            }
-            
-            allProducts.forEach(product => {
-                const productName = product.querySelector('h4').textContent.toLowerCase();
-                const productDesc = product.querySelector('.product-desc').textContent.toLowerCase();
-                const productCode = product.querySelector('.product-code').textContent.toLowerCase();
-                
-                if (productName.includes(searchTerm) || productDesc.includes(searchTerm) || productCode.includes(searchTerm)) {
-                    product.style.display = '';
-                } else {
-                    product.style.display = 'none';
-                }
-            });
-        });
 
         // Active link indicator
         function setActiveLink() {
@@ -2346,6 +2313,54 @@
         document.querySelectorAll('.category-card').forEach((card, index) => {
             card.style.animation = 'fadeInUp 0.6s ease-out forwards';
             card.style.animationDelay = (index * 0.1) + 's';
+        });
+
+        // Search functionality
+        document.querySelector('.search-box input').addEventListener('keyup', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            const productCards = document.querySelectorAll('.product-card');
+            let hasVisibleCards = false;
+
+            productCards.forEach(card => {
+                const productName = card.querySelector('h4').textContent.toLowerCase();
+                const productDesc = card.querySelector('.product-desc').textContent.toLowerCase();
+                const productCode = card.querySelector('.product-code').textContent.toLowerCase();
+
+                if (searchTerm === '' || productName.includes(searchTerm) || 
+                    productDesc.includes(searchTerm) || productCode.includes(searchTerm)) {
+                    card.style.display = '';
+                    hasVisibleCards = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Show or hide no results message
+            const productsGrids = document.querySelectorAll('.products-grid');
+            productsGrids.forEach(grid => {
+                const visibleCards = grid.querySelectorAll('.product-card[style=""]').length + 
+                                     grid.querySelectorAll('.product-card:not([style])').length;
+                const totalCards = grid.querySelectorAll('.product-card').length;
+                const hiddenCards = grid.querySelectorAll('.product-card[style="display: none;"]').length;
+                
+                if (hiddenCards === totalCards && totalCards > 0) {
+                    if (!grid.nextElementSibling || !grid.nextElementSibling.classList.contains('no-results')) {
+                        const noResults = document.createElement('div');
+                        noResults.className = 'no-results';
+                        noResults.textContent = 'No products found matching your search.';
+                        noResults.style.textAlign = 'center';
+                        noResults.style.padding = '2rem';
+                        noResults.style.color = 'var(--gray)';
+                        noResults.style.fontSize = '1rem';
+                        grid.parentNode.insertBefore(noResults, grid.nextSibling);
+                    }
+                } else {
+                    const noResults = grid.nextElementSibling;
+                    if (noResults && noResults.classList.contains('no-results')) {
+                        noResults.remove();
+                    }
+                }
+            });
         });
 
         // Counter animation for stats

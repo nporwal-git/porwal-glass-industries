@@ -2319,7 +2319,8 @@
         document.querySelector('.search-box input').addEventListener('keyup', function() {
             const searchTerm = this.value.toLowerCase().trim();
             const productCards = document.querySelectorAll('.product-card');
-            let hasVisibleCards = false;
+            let hasAnyMatch = false;
+            let firstMatchElement = null;
 
             productCards.forEach(card => {
                 const productName = card.querySelector('h4').textContent.toLowerCase();
@@ -2329,7 +2330,10 @@
                 if (searchTerm === '' || productName.includes(searchTerm) || 
                     productDesc.includes(searchTerm) || productCode.includes(searchTerm)) {
                     card.style.display = '';
-                    hasVisibleCards = true;
+                    hasAnyMatch = true;
+                    if (!firstMatchElement) {
+                        firstMatchElement = card;
+                    }
                 } else {
                     card.style.display = 'none';
                 }
@@ -2337,30 +2341,57 @@
 
             // Show or hide no results message
             const productsGrids = document.querySelectorAll('.products-grid');
+            let globalNoResults = document.getElementById('global-no-results');
+            
             productsGrids.forEach(grid => {
-                const visibleCards = grid.querySelectorAll('.product-card[style=""]').length + 
-                                     grid.querySelectorAll('.product-card:not([style])').length;
+                const visibleCards = grid.querySelectorAll('.product-card:not([style*="display: none"])').length;
                 const totalCards = grid.querySelectorAll('.product-card').length;
-                const hiddenCards = grid.querySelectorAll('.product-card[style="display: none;"]').length;
                 
-                if (hiddenCards === totalCards && totalCards > 0) {
+                if (visibleCards === 0 && totalCards > 0) {
                     if (!grid.nextElementSibling || !grid.nextElementSibling.classList.contains('no-results')) {
                         const noResults = document.createElement('div');
                         noResults.className = 'no-results';
-                        noResults.textContent = 'No products found matching your search.';
+                        noResults.textContent = 'No products found in this category.';
                         noResults.style.textAlign = 'center';
                         noResults.style.padding = '2rem';
                         noResults.style.color = 'var(--gray)';
                         noResults.style.fontSize = '1rem';
-                        grid.parentNode.insertBefore(noResults, grid.nextSibling);
+                        noResults.style.gridColumn = '1 / -1';
+                        grid.appendChild(noResults);
                     }
                 } else {
-                    const noResults = grid.nextElementSibling;
-                    if (noResults && noResults.classList.contains('no-results')) {
+                    const noResults = grid.querySelector('.no-results');
+                    if (noResults) {
                         noResults.remove();
                     }
                 }
             });
+
+            // Show global "no results" if no matches anywhere
+            if (searchTerm !== '' && !hasAnyMatch) {
+                if (!globalNoResults) {
+                    globalNoResults = document.createElement('div');
+                    globalNoResults.id = 'global-no-results';
+                    globalNoResults.textContent = 'No products found matching your search.';
+                    globalNoResults.style.textAlign = 'center';
+                    globalNoResults.style.padding = '3rem 2rem';
+                    globalNoResults.style.color = 'var(--gray)';
+                    globalNoResults.style.fontSize = '1.1rem';
+                    globalNoResults.style.marginTop = '2rem';
+                    document.querySelector('.products-section').insertBefore(globalNoResults, document.querySelector('.products-section').firstChild);
+                }
+            } else {
+                if (globalNoResults) {
+                    globalNoResults.remove();
+                }
+            }
+
+            // Scroll to first match if found
+            if (searchTerm !== '' && firstMatchElement) {
+                setTimeout(() => {
+                    firstMatchElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
         });
 
         // Counter animation for stats

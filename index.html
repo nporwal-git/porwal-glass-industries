@@ -1113,7 +1113,7 @@
     <!-- HEADER -->
     <header>
         <div class="header-wrapper">
-            <a href="#" class="logo">PORWAL GLASS <span>&nbsp;INDUSTRIES</span></a>
+            <a href="#" class="logo">PORWAL GLASS <span>INDUSTRIES</span></a>
             <nav class="nav-menu" id="navMenu">
                 <li class="nav-item dropdown" id="categoriesDropdown">
                     <a href="#" class="nav-link dropdown-toggle" onclick="toggleDropdown(event)">Products</a>
@@ -1129,7 +1129,7 @@
             </nav>
             <div class="header-actions">
                 <div class="search-box">
-                    <input type="text" placeholder="Search products...">
+                    <input type="text" placeholder="Search products..." autocomplete="off">
                     <i class="fas fa-search"></i>
                 </div>
                 <div class="social-links">
@@ -2253,10 +2253,15 @@
 
         // Close menu when link is clicked
         document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', () => {
+            link.addEventListener('click', (e) => {
                 if (window.innerWidth <= 768) {
-                    document.getElementById('navMenu').classList.remove('active');
-                    document.getElementById('hamburger').classList.remove('active');
+                    // Only close menu if not a dropdown toggle
+                    if (!e.target.closest('.dropdown-toggle')) {
+                        setTimeout(() => {
+                            document.getElementById('navMenu').classList.remove('active');
+                            document.getElementById('hamburger').classList.remove('active');
+                        }, 100);
+                    }
                 }
             });
         });
@@ -2269,6 +2274,34 @@
                 dropdown.classList.toggle('active');
             }
         }
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-box input');
+        const allProducts = document.querySelectorAll('.product-card');
+        
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            if (searchTerm.length === 0) {
+                // Show all products if search is empty
+                allProducts.forEach(product => {
+                    product.style.display = '';
+                });
+                return;
+            }
+            
+            allProducts.forEach(product => {
+                const productName = product.querySelector('h4').textContent.toLowerCase();
+                const productDesc = product.querySelector('.product-desc').textContent.toLowerCase();
+                const productCode = product.querySelector('.product-code').textContent.toLowerCase();
+                
+                if (productName.includes(searchTerm) || productDesc.includes(searchTerm) || productCode.includes(searchTerm)) {
+                    product.style.display = '';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        });
 
         // Active link indicator
         function setActiveLink() {

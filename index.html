@@ -45,11 +45,12 @@
         header {
             background: var(--white);
             border-bottom: 1px solid var(--gray-light);
-            padding: 1rem 0;
+            padding: 0;
             position: sticky;
             top: 0;
             z-index: 100;
             box-shadow: var(--shadow-sm);
+            height: 70px;
         }
 
         .header-wrapper {
@@ -60,15 +61,25 @@
             justify-content: space-between;
             align-items: center;
             gap: 2rem;
+            height: 100%;
         }
 
         .logo {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--primary);
             letter-spacing: -0.5px;
             text-transform: uppercase;
             flex-shrink: 0;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            opacity: 0.8;
         }
 
         .logo span {
@@ -77,9 +88,21 @@
 
         .nav-menu {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             flex: 1;
             justify-content: center;
+            align-items: center;
+            height: 100%;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-item {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
         }
 
         .nav-menu a {
@@ -89,15 +112,19 @@
             font-weight: 500;
             position: relative;
             transition: var(--transition);
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding: 0 0.5rem;
         }
 
         .nav-menu a::after {
             content: '';
             position: absolute;
-            bottom: -4px;
+            bottom: 0;
             left: 0;
             width: 0;
-            height: 2px;
+            height: 3px;
             background: var(--primary);
             transition: var(--transition);
         }
@@ -110,10 +137,92 @@
             width: 100%;
         }
 
+        .nav-menu a.active {
+            color: var(--primary);
+        }
+
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+            height: 100%;
+        }
+
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .dropdown-toggle::after {
+            content: '▼';
+            font-size: 0.6rem;
+            margin-left: 0.5rem;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .dropdown:hover .dropdown-toggle::after {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            border: 1px solid var(--gray-light);
+            border-radius: 6px;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+            list-style: none;
+            margin: 0;
+            padding: 0.5rem 0;
+            z-index: 1000;
+            margin-top: -1px;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0.8rem 1.5rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+            transition: var(--transition);
+            height: auto;
+        }
+
+        .dropdown-menu a::after {
+            display: none;
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--bg-light);
+            color: var(--primary);
+            padding-left: 2rem;
+        }
+
         .header-actions {
             display: flex;
             gap: 1.5rem;
             align-items: center;
+            height: 100%;
         }
 
         .search-box {
@@ -124,6 +233,7 @@
             padding: 0.6rem 1rem;
             border: 1px solid var(--gray-light);
             flex: 0 1 250px;
+            height: 40px;
         }
 
         .search-box input {
@@ -182,6 +292,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            white-space: nowrap;
         }
 
         .btn-primary:hover {
@@ -205,6 +316,37 @@
         .btn-secondary:hover {
             background: #c49464;
             transform: translateY(-2px);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2.5px;
+            background: var(--primary);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
         }
 
         /* ===== HERO SECTION ===== */
@@ -593,6 +735,17 @@
             margin: 0.5rem 0;
         }
 
+        .contact-card .phone-link {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-card .phone-link:hover {
+            color: var(--primary-light);
+        }
+
         /* ===== FOOTER ===== */
         footer {
             background: var(--dark);
@@ -713,26 +866,113 @@
         }
 
         @media (max-width: 768px) {
+            header {
+                height: auto;
+            }
+
             .header-wrapper {
                 flex-wrap: wrap;
                 gap: 1rem;
+                padding: 1rem 20px;
             }
 
-            .nav-menu {
-                gap: 1rem;
-                font-size: 0.85rem;
+            .hamburger {
+                display: flex;
                 order: 3;
-                width: 100%;
             }
 
-            .search-box {
-                flex: 0 1 100%;
-                order: 2;
+            .logo {
+                font-size: 1.4rem;
+                order: 1;
+                flex: 1;
             }
 
             .header-actions {
-                order: 1;
+                order: 2;
                 width: 100%;
+                margin-bottom: 1rem;
+                gap: 1rem;
+            }
+
+            .search-box {
+                flex: 1;
+                height: 38px;
+            }
+
+            .btn-primary {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.85rem;
+            }
+
+            .social-links {
+                gap: 0.5rem;
+            }
+
+            .social-links a {
+                width: 32px;
+                height: 32px;
+                font-size: 0.9rem;
+            }
+
+            .nav-menu {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                gap: 0;
+                width: 100%;
+                padding: 1rem 0;
+                border-bottom: 1px solid var(--gray-light);
+                z-index: 99;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-item {
+                width: 100%;
+                height: auto;
+                padding: 0;
+            }
+
+            .nav-menu a {
+                padding: 1rem 2rem;
+                height: auto;
+                border-bottom: 1px solid var(--gray-light);
+            }
+
+            .dropdown-menu {
+                position: static;
+                opacity: 0;
+                visibility: hidden;
+                transform: none;
+                background: var(--bg-light);
+                box-shadow: none;
+                border: none;
+                margin: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: var(--transition);
+            }
+
+            .dropdown.active .dropdown-menu {
+                opacity: 1;
+                visibility: visible;
+                max-height: 500px;
+            }
+
+            .dropdown-menu a {
+                padding: 0.8rem 2rem 0.8rem 3rem;
+                border-bottom: none;
+            }
+
+            .dropdown-toggle::after {
+                position: absolute;
+                right: 1.5rem;
             }
 
             .hero {
@@ -776,25 +1016,58 @@
             .whatsapp-btn i {
                 font-size: 1.5rem;
             }
-
-            .social-links {
-                gap: 0.5rem;
-            }
-
-            .social-links a {
-                width: 32px;
-                height: 32px;
-                font-size: 0.9rem;
-            }
         }
 
         @media (max-width: 480px) {
+            header {
+                height: auto;
+            }
+
             .header-wrapper {
-                flex-direction: column;
+                padding: 1rem 15px;
+                gap: 0.5rem;
             }
 
             .logo {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
+                order: 1;
+            }
+
+            .hamburger {
+                order: 2;
+            }
+
+            .header-actions {
+                order: 3;
+                width: 100%;
+                margin-bottom: 0.5rem;
+                gap: 0.5rem;
+            }
+
+            .search-box {
+                flex: 1;
+                height: 36px;
+                padding: 0.5rem 0.8rem;
+            }
+
+            .btn-primary {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .social-links {
+                gap: 0.3rem;
+            }
+
+            .social-links a {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+
+            .nav-menu a {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
             }
 
             .hero h1 {
@@ -833,11 +1106,6 @@
             .contact-grid {
                 grid-template-columns: 1fr;
             }
-
-            .social-links {
-                width: 100%;
-                justify-content: center;
-            }
         }
     </style>
 </head>
@@ -845,13 +1113,19 @@
     <!-- HEADER -->
     <header>
         <div class="header-wrapper">
-            <div class="logo">PORWAL GLASS <span>INDUSTRIES</span></div>
-            <nav class="nav-menu">
-                <a href="#categories">Categories</a>
-                <a href="#glassware">Glassware</a>
-                <a href="#dinnerware">Dinnerware</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
+            <a href="#" class="logo">PORWAL GLASS <span>&nbsp;INDUSTRIES</span></a>
+            <nav class="nav-menu" id="navMenu">
+                <li class="nav-item dropdown" id="categoriesDropdown">
+                    <a href="#" class="nav-link dropdown-toggle" onclick="toggleDropdown(event)">Products</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#glassware">Glassware</a></li>
+                        <li><a href="#dinnerware">Dinnerware</a></li>
+                        <li><a href="#serving">Serving & Storage</a></li>
+                        <li><a href="#kitchen-tools">Kitchen Tools</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
             </nav>
             <div class="header-actions">
                 <div class="search-box">
@@ -859,14 +1133,19 @@
                     <i class="fas fa-search"></i>
                 </div>
                 <div class="social-links">
-                    <a href="https://instagram.com/porwalglass" target="_blank" title="Follow on Instagram">
+                    <a href="https://instagram.com/porwalglassindustries" target="_blank" title="Follow on Instagram">
                         <i class="fab fa-instagram"></i>
                     </a>
                 </div>
-                <button class="btn-primary" onclick="openWhatsApp()">
-                    <i class="fab fa-whatsapp"></i> Order
+                <button class="btn-primary" onclick="openQuoteRequest()">
+                    <i class="fas fa-quote-left"></i> Quote
                 </button>
             </div>
+            <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </header>
 
@@ -876,7 +1155,7 @@
             <h1>Premium Glassware & Kitchenware</h1>
             <p>Quality products for home, hotel, and restaurant - Since 2009</p>
             <div class="hero-buttons">
-                <button class="btn-primary" onclick="document.getElementById('categories').scrollIntoView({behavior: 'smooth'})">
+                <button class="btn-primary" onclick="document.getElementById('glassware').scrollIntoView({behavior: 'smooth'})">
                     <i class="fas fa-shopping-bag"></i> Explore Products
                 </button>
                 <button class="btn-secondary" onclick="openWhatsApp()">
@@ -896,26 +1175,26 @@
             <div class="category-card">
                 <div class="category-icon"><i class="fas fa-wine-glass-alt"></i></div>
                 <h3>Glassware</h3>
-                <p>Beer mugs, wine glasses, tumblers, bowls, jars & more</p>
-                <div class="category-badge">50+ Products</div>
+                <p>Beer mugs, wine glasses, tumblers & more</p>
+                <div class="category-badge">12+ Products</div>
             </div>
             <div class="category-card">
                 <div class="category-icon"><i class="fas fa-plate-wheat"></i></div>
                 <h3>Dinnerware</h3>
                 <p>Opal glass plates, bowls & serving pieces</p>
-                <div class="category-badge">30+ Products</div>
+                <div class="category-badge">12+ Products</div>
             </div>
             <div class="category-card">
-                <div class="category-icon"><i class="fas fa-spoon"></i></div>
-                <h3>Melamine Crockery</h3>
-                <p>Lightweight, shatter-resistant dining sets</p>
+                <div class="category-icon"><i class="fas fa-wine-bottle"></i></div>
+                <h3>Serving & Storage</h3>
+                <p>Decanters, pitchers, jars & serving items</p>
                 <div class="category-badge">20+ Products</div>
             </div>
             <div class="category-card">
                 <div class="category-icon"><i class="fas fa-cube"></i></div>
                 <h3>Kitchen Tools</h3>
-                <p>Storage, containers & daily utilities</p>
-                <div class="category-badge">20+ Products</div>
+                <p>Utility tools, measuring equipment & accessories</p>
+                <div class="category-badge">50+ Products</div>
             </div>
         </div>
     </section>
@@ -1038,12 +1317,12 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Decanter.png" alt="Decanter" class="product-img" loading="lazy">
+                <img src="./images/Iced-Tea-Glass.png" alt="Iced Tea Glass" class="product-img" loading="lazy">
                 <div class="product-info">
-                    <h4>Decanter</h4>
-                    <p class="product-desc">Elegant serving vessel</p>
-                    <div class="product-code">G-017</div>
-                    <button class="btn-enquire" onclick="enquirePrice('G-017', 'Decanter')">Enquire Price</button>
+                    <h4>Iced Tea Glass</h4>
+                    <p class="product-desc">Tall iced beverage glass</p>
+                    <div class="product-code">G-034</div>
+                    <button class="btn-enquire" onclick="enquirePrice('G-034', 'Iced Tea Glass')">Enquire Price</button>
                 </div>
             </div>
         </div>
@@ -1070,7 +1349,7 @@
                 <img src="./images/Side-Plate.png" alt="Side Plate" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Side Plate</h4>
-                    <p class="product-desc">Bread/side plate</p>
+                    <p class="product-desc">Bread and side plate</p>
                     <div class="product-code">O-002</div>
                     <button class="btn-enquire" onclick="enquirePrice('O-002', 'Side Plate')">Enquire Price</button>
                 </div>
@@ -1107,52 +1386,141 @@
             </div>
 
             <div class="product-card">
-                <img src="./images/Cake-Stand.png" alt="Cake Stand" class="product-img" loading="lazy">
+                <img src="./images/Black-Ramen-Bowl.png" alt="Black Ramen Bowl" class="product-img" loading="lazy">
                 <div class="product-info">
-                    <h4>Cake Stand</h4>
-                    <p class="product-desc">Pedestal display stand</p>
-                    <div class="product-code">O-032</div>
-                    <button class="btn-enquire" onclick="enquirePrice('O-032', 'Cake Stand')">Enquire Price</button>
+                    <h4>Black Ramen Bowl</h4>
+                    <p class="product-desc">Asian noodle bowl</p>
+                    <div class="product-code">O-009</div>
+                    <button class="btn-enquire" onclick="enquirePrice('O-009', 'Black Ramen Bowl')">Enquire Price</button>
                 </div>
             </div>
 
             <div class="product-card">
-                <img src="./images/Butter-Dish.png" alt="Butter Dish" class="product-img" loading="lazy">
+                <img src="./images/Teal-Plate.png" alt="Teal Plate" class="product-img" loading="lazy">
                 <div class="product-info">
-                    <h4>Butter Dish</h4>
-                    <p class="product-desc">Covered butter dish</p>
-                    <div class="product-code">O-016</div>
-                    <button class="btn-enquire" onclick="enquirePrice('O-016', 'Butter Dish')">Enquire Price</button>
+                    <h4>Teal Plate</h4>
+                    <p class="product-desc">Colored opal plate</p>
+                    <div class="product-code">O-010</div>
+                    <button class="btn-enquire" onclick="enquirePrice('O-010', 'Teal Plate')">Enquire Price</button>
                 </div>
             </div>
 
             <div class="product-card">
-                <img src="./images/Gravy-Boat.png" alt="Gravy Boat" class="product-img" loading="lazy">
+                <img src="./images/Sandstone-Plate.png" alt="Sandstone Plate" class="product-img" loading="lazy">
                 <div class="product-info">
-                    <h4>Gravy Boat</h4>
-                    <p class="product-desc">Sauce serving boat</p>
-                    <div class="product-code">O-017</div>
-                    <button class="btn-enquire" onclick="enquirePrice('O-017', 'Gravy Boat')">Enquire Price</button>
+                    <h4>Sandstone Plate</h4>
+                    <p class="product-desc">Textured plate</p>
+                    <div class="product-code">O-011</div>
+                    <button class="btn-enquire" onclick="enquirePrice('O-011', 'Sandstone Plate')">Enquire Price</button>
                 </div>
             </div>
 
             <div class="product-card">
-                <img src="./images/Bath-Mug.png" alt="Bath Mug" class="product-img" loading="lazy">
+                <img src="./images/Glass_Ramekin.png" alt="Glass Ramekin" class="product-img" loading="lazy">
                 <div class="product-info">
-                    <h4>Bath Mug</h4>
-                    <p class="product-desc">Coffee/tea mug</p>
-                    <div class="product-code">O-007</div>
-                    <button class="btn-enquire" onclick="enquirePrice('O-007', 'Bath Mug')">Enquire Price</button>
+                    <h4>Glass Ramekin</h4>
+                    <p class="product-desc">Individual serving dish</p>
+                    <div class="product-code">O-012</div>
+                    <button class="btn-enquire" onclick="enquirePrice('O-012', 'Glass Ramekin')">Enquire Price</button>
                 </div>
             </div>
 
             <div class="product-card">
-                <img src="./images/Bread-Basket.png" alt="Bread Basket" class="product-img" loading="lazy">
+                <img src="./images/Marble-Tray.png" alt="Marble Tray" class="product-img" loading="lazy">
                 <div class="product-info">
-                    <h4>Bread Basket</h4>
-                    <p class="product-desc">Decorative basket</p>
-                    <div class="product-code">O-015</div>
-                    <button class="btn-enquire" onclick="enquirePrice('O-015', 'Bread Basket')">Enquire Price</button>
+                    <h4>Marble Tray</h4>
+                    <p class="product-desc">Elegant serving tray</p>
+                    <div class="product-code">O-013</div>
+                    <button class="btn-enquire" onclick="enquirePrice('O-013', 'Marble Tray')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Serving-Platter.png" alt="Serving Platter" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Serving Platter</h4>
+                    <p class="product-desc">Large platter</p>
+                    <div class="product-code">O-014</div>
+                    <button class="btn-enquire" onclick="enquirePrice('O-014', 'Serving Platter')">Enquire Price</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVING & STORAGE PRODUCTS -->
+    <section class="container products-section" id="serving">
+        <div class="section-title">
+            <h2>Serving & Storage Collection</h2>
+            <p>Elegant serving vessels and storage solutions</p>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="./images/Decanter.png" alt="Decanter" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Decanter</h4>
+                    <p class="product-desc">Elegant serving vessel</p>
+                    <div class="product-code">S-001</div>
+                    <button class="btn-enquire" onclick="enquirePrice('S-001', 'Decanter')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Pitcher.png" alt="Pitcher" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Pitcher</h4>
+                    <p class="product-desc">Beverage serving pitcher</p>
+                    <div class="product-code">S-002</div>
+                    <button class="btn-enquire" onclick="enquirePrice('S-002', 'Pitcher')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Carafe.png" alt="Carafe" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Carafe</h4>
+                    <p class="product-desc">Decorative serving carafe</p>
+                    <div class="product-code">S-003</div>
+                    <button class="btn-enquire" onclick="enquirePrice('S-003', 'Carafe')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Juice-Pitcher.png" alt="Juice Pitcher" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Juice Pitcher</h4>
+                    <p class="product-desc">Juice and beverage pitcher</p>
+                    <div class="product-code">S-004</div>
+                    <button class="btn-enquire" onclick="enquirePrice('S-004', 'Juice Pitcher')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Creamer-Jug.png" alt="Creamer Jug" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Creamer Jug</h4>
+                    <p class="product-desc">Cream serving jug</p>
+                    <div class="product-code">S-005</div>
+                    <button class="btn-enquire" onclick="enquirePrice('S-005', 'Creamer Jug')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Sugar-Bowl.png" alt="Sugar Bowl" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Sugar Bowl</h4>
+                    <p class="product-desc">Sugar serving bowl</p>
+                    <div class="product-code">S-006</div>
+                    <button class="btn-enquire" onclick="enquirePrice('S-006', 'Sugar Bowl')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Spice-Jar.png" alt="Spice Jar" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Spice Jar</h4>
+                    <p class="product-desc">Glass spice storage jar</p>
+                    <div class="product-code">S-007</div>
+                    <button class="btn-enquire" onclick="enquirePrice('S-007', 'Spice Jar')">Enquire Price</button>
                 </div>
             </div>
 
@@ -1160,9 +1528,39 @@
                 <img src="./images/Storage-Jar.png" alt="Storage Jar" class="product-img" loading="lazy">
                 <div class="product-info">
                     <h4>Storage Jar</h4>
-                    <p class="product-desc">Airtight storage</p>
-                    <div class="product-code">O-006</div>
-                    <button class="btn-enquire" onclick="enquirePrice('O-006', 'Storage Jar')">Enquire Price</button>
+                    <p class="product-desc">Airtight storage jar</p>
+                    <div class="product-code">S-008</div>
+                    <button class="btn-enquire" onclick="enquirePrice('S-008', 'Storage Jar')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Honey-Pot.png" alt="Honey Pot" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Honey Pot</h4>
+                    <p class="product-desc">Decorative honey server</p>
+                    <div class="product-code">S-009</div>
+                    <button class="btn-enquire" onclick="enquirePrice('S-009', 'Honey Pot')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Jam-Jar.png" alt="Jam Jar" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Jam Jar</h4>
+                    <p class="product-desc">Glass jam storage jar</p>
+                    <div class="product-code">S-010</div>
+                    <button class="btn-enquire" onclick="enquirePrice('S-010', 'Jam Jar')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Honey-Jar.png" alt="Honey Jar" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Honey Jar</h4>
+                    <p class="product-desc">Honey storage vessel</p>
+                    <div class="product-code">S-011</div>
+                    <button class="btn-enquire" onclick="enquirePrice('S-011', 'Honey Jar')">Enquire Price</button>
                 </div>
             </div>
 
@@ -1171,8 +1569,597 @@
                 <div class="product-info">
                     <h4>Flower Vase</h4>
                     <p class="product-desc">Decorative vase</p>
-                    <div class="product-code">G-019</div>
-                    <button class="btn-enquire" onclick="enquirePrice('G-019', 'Flower Vase')">Enquire Price</button>
+                    <div class="product-code">S-012</div>
+                    <button class="btn-enquire" onclick="enquirePrice('S-012', 'Flower Vase')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Celery-Vase.png" alt="Celery Vase" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Celery Vase</h4>
+                    <p class="product-desc">Tall display vase</p>
+                    <div class="product-code">S-013</div>
+                    <button class="btn-enquire" onclick="enquirePrice('S-013', 'Celery Vase')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Candle-Holder.png" alt="Candle Holder" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Candle Holder</h4>
+                    <p class="product-desc">Glass candle holder</p>
+                    <div class="product-code">S-014</div>
+                    <button class="btn-enquire" onclick="enquirePrice('S-014', 'Candle Holder')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Cake-Stand.png" alt="Cake Stand" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Cake Stand</h4>
+                    <p class="product-desc">Pedestal display stand</p>
+                    <div class="product-code">S-015</div>
+                    <button class="btn-enquire" onclick="enquirePrice('S-015', 'Cake Stand')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Butter-Dish.png" alt="Butter Dish" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Butter Dish</h4>
+                    <p class="product-desc">Covered butter dish</p>
+                    <div class="product-code">S-016</div>
+                    <button class="btn-enquire" onclick="enquirePrice('S-016', 'Butter Dish')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Gravy-Boat.png" alt="Gravy Boat" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Gravy Boat</h4>
+                    <p class="product-desc">Sauce serving boat</p>
+                    <div class="product-code">S-017</div>
+                    <button class="btn-enquire" onclick="enquirePrice('S-017', 'Gravy Boat')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Glass-Teapot.png" alt="Glass Teapot" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Glass Teapot</h4>
+                    <p class="product-desc">Tea brewing teapot</p>
+                    <div class="product-code">S-018</div>
+                    <button class="btn-enquire" onclick="enquirePrice('S-018', 'Glass Teapot')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Oil-Dispenser.png" alt="Oil Dispenser" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Oil Dispenser</h4>
+                    <p class="product-desc">Cooking oil dispenser</p>
+                    <div class="product-code">S-019</div>
+                    <button class="btn-enquire" onclick="enquirePrice('S-019', 'Oil Dispenser')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Candy-Jar.png" alt="Candy Jar" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Candy Jar</h4>
+                    <p class="product-desc">Decorative candy container</p>
+                    <div class="product-code">S-020</div>
+                    <button class="btn-enquire" onclick="enquirePrice('S-020', 'Candy Jar')">Enquire Price</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KITCHEN TOOLS & ACCESSORIES -->
+    <section class="container products-section" id="kitchen-tools">
+        <div class="section-title">
+            <h2>Kitchen Tools & Accessories</h2>
+            <p>Complete range of utility and plastic kitchenware</p>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="./images/Vinegar-Bottle.png" alt="Vinegar Bottle" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Vinegar Bottle</h4>
+                    <p class="product-desc">Glass vinegar storage bottle</p>
+                    <div class="product-code">K-001</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-001', 'Vinegar Bottle')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Syrup-Dispenser.png" alt="Syrup Dispenser" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Syrup Dispenser</h4>
+                    <p class="product-desc">Syrup serving dispenser</p>
+                    <div class="product-code">K-002</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-002', 'Syrup Dispenser')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Salt-Shaker.png" alt="Salt Shaker" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Salt Shaker</h4>
+                    <p class="product-desc">Glass salt shaker</p>
+                    <div class="product-code">K-003</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-003', 'Salt Shaker')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Pepper-Shaker.png" alt="Pepper Shaker" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Pepper Shaker</h4>
+                    <p class="product-desc">Glass pepper shaker</p>
+                    <div class="product-code">K-004</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-004', 'Pepper Shaker')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Pickle-Jar-Set.png" alt="Pickle Jar Set" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Pickle Jar Set</h4>
+                    <p class="product-desc">Set of pickle jars</p>
+                    <div class="product-code">K-005</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-005', 'Pickle Jar Set')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Sauce-Squeeze-Bottle.png" alt="Sauce Squeeze Bottle" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Sauce Squeeze Bottle</h4>
+                    <p class="product-desc">Squeeze bottle for sauces</p>
+                    <div class="product-code">K-006</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-006', 'Sauce Squeeze Bottle')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Serving-Tongs.png" alt="Serving Tongs" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Serving Tongs</h4>
+                    <p class="product-desc">Metal serving tongs</p>
+                    <div class="product-code">K-007</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-007', 'Serving Tongs')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-measuring-Spoons.png" alt="Plastic Measuring Spoons" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Measuring Spoons</h4>
+                    <p class="product-desc">Set of measuring spoons</p>
+                    <div class="product-code">K-008</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-008', 'Plastic Measuring Spoons')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Measuring-Spoons.png" alt="Measuring Spoons" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Measuring Spoons</h4>
+                    <p class="product-desc">Premium measuring spoons</p>
+                    <div class="product-code">K-009</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-009', 'Measuring Spoons')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Water-Bottle.png" alt="Plastic Water Bottle" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Water Bottle</h4>
+                    <p class="product-desc">Durable water bottle</p>
+                    <div class="product-code">K-010</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-010', 'Plastic Water Bottle')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Measuring-Jug.png" alt="Plastic Measuring Jug" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Measuring Jug</h4>
+                    <p class="product-desc">Liquid measuring jug</p>
+                    <div class="product-code">K-011</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-011', 'Plastic Measuring Jug')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Pitcher.png" alt="Plastic Pitcher" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Pitcher</h4>
+                    <p class="product-desc">Beverage serving pitcher</p>
+                    <div class="product-code">K-012</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-012', 'Plastic Pitcher')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Ice-Tray.png" alt="Plastic Ice Tray" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Ice Tray</h4>
+                    <p class="product-desc">Ice cube maker tray</p>
+                    <div class="product-code">K-013</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-013', 'Plastic Ice Tray')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Colander-White.png" alt="Plastic Colander" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Colander</h4>
+                    <p class="product-desc">Vegetable straining colander</p>
+                    <div class="product-code">K-014</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-014', 'Plastic Colander')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Funnel.png" alt="Plastic Funnel" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Funnel</h4>
+                    <p class="product-desc">Utility funnel</p>
+                    <div class="product-code">K-015</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-015', 'Plastic Funnel')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Kitchen-Funnel.png" alt="Kitchen Funnel" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Kitchen Funnel</h4>
+                    <p class="product-desc">Premium kitchen funnel</p>
+                    <div class="product-code">K-016</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-016', 'Kitchen Funnel')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Squeeze-Bottle.png" alt="Plastic Squeeze Bottle" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Squeeze Bottle</h4>
+                    <p class="product-desc">Condiment squeeze bottle</p>
+                    <div class="product-code">K-017</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-017', 'Plastic Squeeze Bottle')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Spray-Bottle.png" alt="Plastic Spray Bottle" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Spray Bottle</h4>
+                    <p class="product-desc">Spray dispenser bottle</p>
+                    <div class="product-code">K-018</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-018', 'Plastic Spray Bottle')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Spice-Jar.png" alt="Plastic Spice Jar" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Spice Jar</h4>
+                    <p class="product-desc">Spice storage container</p>
+                    <div class="product-code">K-019</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-019', 'Plastic Spice Jar')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Food-Container-Rect.png" alt="Plastic Food Container" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Food Container</h4>
+                    <p class="product-desc">Rectangular storage container</p>
+                    <div class="product-code">K-020</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-020', 'Plastic Food Container')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Cutulery-Tray.png" alt="Plastic Cutlery Tray" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Cutlery Tray</h4>
+                    <p class="product-desc">Utensil organizing tray</p>
+                    <div class="product-code">K-021</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-021', 'Plastic Cutlery Tray')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Mixing-Spoon.png" alt="Plastic Mixing Spoon" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Mixing Spoon</h4>
+                    <p class="product-desc">Cooking mixing spoon</p>
+                    <div class="product-code">K-022</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-022', 'Plastic Mixing Spoon')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Cutting-Board.png" alt="Plastic Cutting Board" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Cutting Board</h4>
+                    <p class="product-desc">Food preparation board</p>
+                    <div class="product-code">K-023</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-023', 'Plastic Cutting Board')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Vegetable-Peeler.png" alt="Vegetable Peeler" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Vegetable Peeler</h4>
+                    <p class="product-desc">Vegetable peeling tool</p>
+                    <div class="product-code">K-024</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-024', 'Vegetable Peeler')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Rolling-Pin.png" alt="Rolling Pin" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Rolling Pin</h4>
+                    <p class="product-desc">Dough rolling pin</p>
+                    <div class="product-code">K-025</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-025', 'Rolling Pin')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Garlic-Press.png" alt="Garlic Press" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Garlic Press</h4>
+                    <p class="product-desc">Garlic mincer tool</p>
+                    <div class="product-code">K-026</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-026', 'Garlic Press')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Bath-Mug.png" alt="Plastic Bath Mug" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Bath Mug</h4>
+                    <p class="product-desc">Bathroom water mug</p>
+                    <div class="product-code">K-027</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-027', 'Plastic Bath Mug')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Ceareal-Dispenser.png" alt="Plastic Cereal Dispenser" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Cereal Dispenser</h4>
+                    <p class="product-desc">Cereal and dry food dispenser</p>
+                    <div class="product-code">K-028</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-028', 'Plastic Cereal Dispenser')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Bread-Basket.png" alt="Bread Basket" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Bread Basket</h4>
+                    <p class="product-desc">Decorative bread basket</p>
+                    <div class="product-code">K-029</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-029', 'Bread Basket')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Dish-Rack.png" alt="Plastic Dish Rack" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Dish Rack</h4>
+                    <p class="product-desc">Dish drying rack</p>
+                    <div class="product-code">K-030</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-030', 'Plastic Dish Rack')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Dish-Drainer.png" alt="Dish Drainer" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Dish Drainer</h4>
+                    <p class="product-desc">Kitchen dish draining mat</p>
+                    <div class="product-code">K-031</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-031', 'Dish Drainer')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Basin-Tub.png" alt="Basin Tub" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Basin Tub</h4>
+                    <p class="product-desc">Washing basin tub</p>
+                    <div class="product-code">K-032</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-032', 'Basin Tub')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Basin-Circular.png" alt="Plastic Basin" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Basin Circular</h4>
+                    <p class="product-desc">Round utility basin</p>
+                    <div class="product-code">K-033</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-033', 'Plastic Basin Circular')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Microwave-Cover.png" alt="Microwave Cover" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Microwave Cover</h4>
+                    <p class="product-desc">Food splatter cover</p>
+                    <div class="product-code">K-034</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-034', 'Microwave Cover')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Microwave-Cover-Holed.png" alt="Microwave Cover Holed" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Microwave Cover Holed</h4>
+                    <p class="product-desc">Vented microwave cover</p>
+                    <div class="product-code">K-035</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-035', 'Microwave Cover Holed')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Cake-Dome.png" alt="Cake Dome" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Cake Dome</h4>
+                    <p class="product-desc">Cake server with dome cover</p>
+                    <div class="product-code">K-036</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-036', 'Cake Dome')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Fruit-Basket.png" alt="Plastic Fruit Basket" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Fruit Basket</h4>
+                    <p class="product-desc">Fruit and vegetable basket</p>
+                    <div class="product-code">K-037</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-037', 'Plastic Fruit Basket')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Salad-Spinner.png" alt="Plastic Salad Spinner" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Salad Spinner</h4>
+                    <p class="product-desc">Vegetable washing spinner</p>
+                    <div class="product-code">K-038</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-038', 'Plastic Salad Spinner')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Dustbin.png" alt="Plastic Dustbin" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Dustbin</h4>
+                    <p class="product-desc">Waste disposal dustbin</p>
+                    <div class="product-code">K-039</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-039', 'Plastic Dustbin')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Pedal-Bin.png" alt="Pedal Bin" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Pedal Bin</h4>
+                    <p class="product-desc">Foot-operated trash bin</p>
+                    <div class="product-code">K-040</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-040', 'Pedal Bin')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Laundry-Basket.png" alt="Laundry Basket" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Laundry Basket</h4>
+                    <p class="product-desc">Clothes storage basket</p>
+                    <div class="product-code">K-041</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-041', 'Laundry Basket')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Egg-Tray.png" alt="Egg Tray" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Egg Tray</h4>
+                    <p class="product-desc">Egg storage and display tray</p>
+                    <div class="product-code">K-042</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-042', 'Egg Tray')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Egg-Holder.png" alt="Plastic Egg Holder" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Egg Holder</h4>
+                    <p class="product-desc">Individual egg holder</p>
+                    <div class="product-code">K-043</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-043', 'Plastic Egg Holder')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Bread-Box.png" alt="Plastic Bread Box" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Bread Box</h4>
+                    <p class="product-desc">Bread storage container</p>
+                    <div class="product-code">K-044</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-044', 'Plastic Bread Box')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Dustpan-Set.png" alt="Dustpan Set" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Dustpan Set</h4>
+                    <p class="product-desc">Dustpan and brush set</p>
+                    <div class="product-code">K-045</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-045', 'Dustpan Set')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Hanger.png" alt="Plastic Hanger" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Hanger</h4>
+                    <p class="product-desc">Durable plastic hanger</p>
+                    <div class="product-code">K-046</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-046', 'Plastic Hanger')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Cutulery-Organizer.png" alt="Cutlery Organizer" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Cutlery Organizer</h4>
+                    <p class="product-desc">Utensil storage organizer</p>
+                    <div class="product-code">K-047</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-047', 'Cutlery Organizer')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Plastic-Soap-Dish.png" alt="Plastic Soap Dish" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Plastic Soap Dish</h4>
+                    <p class="product-desc">Bathroom soap holder</p>
+                    <div class="product-code">K-048</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-048', 'Plastic Soap Dish')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Soap-Case.png" alt="Soap Case" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Soap Case</h4>
+                    <p class="product-desc">Soap storage case</p>
+                    <div class="product-code">K-049</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-049', 'Soap Case')">Enquire Price</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="./images/Toothbrush-Holder.png" alt="Toothbrush Holder" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h4>Toothbrush Holder</h4>
+                    <p class="product-desc">Bathroom toothbrush holder</p>
+                    <div class="product-code">K-050</div>
+                    <button class="btn-enquire" onclick="enquirePrice('K-050', 'Toothbrush Holder')">Enquire Price</button>
                 </div>
             </div>
         </div>
@@ -1191,7 +2178,7 @@
                     <div class="stat-label">Years Experience</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">100+</div>
+                    <div class="stat-number">94+</div>
                     <div class="stat-label">Product SKUs</div>
                 </div>
                 <div class="stat-item">
@@ -1214,7 +2201,7 @@
                 <div class="contact-card">
                     <div class="contact-icon"><i class="fas fa-phone"></i></div>
                     <h4>Phone Support</h4>
-                    <p>+91 98371 77383</p>
+                    <a href="tel:+919837177383" class="phone-link">+91 98371 77383</a>
                     <p style="font-size: 0.9rem; color: var(--gray);">Quick Response</p>
                 </div>
                 <div class="contact-card">
@@ -1236,7 +2223,7 @@
     <!-- FOOTER -->
     <footer>
         <p>&copy; 2024 Porwal Glass Industries. All rights reserved.</p>
-        <p>Premium Glassware | Opal Glass Dinnerware | Melamine Crockery | Plastic Kitchenware</p>
+        <p>Premium Glassware | Opal Glass Dinnerware | Plastic Kitchenware | Household Accessories</p>
         <div class="footer-social">
             <a href="https://instagram.com/porwalglassindustries" target="_blank" title="Instagram">
                 <i class="fab fa-instagram"></i>
@@ -1256,6 +2243,49 @@
     </div>
 
     <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.getElementById('hamburger');
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Close menu when link is clicked
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    document.getElementById('navMenu').classList.remove('active');
+                    document.getElementById('hamburger').classList.remove('active');
+                }
+            });
+        });
+
+        // Dropdown toggle for mobile
+        function toggleDropdown(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                const dropdown = e.target.parentElement;
+                dropdown.classList.toggle('active');
+            }
+        }
+
+        // Active link indicator
+        function setActiveLink() {
+            const currentPage = window.location.hash || '#glassware';
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        window.addEventListener('hashchange', setActiveLink);
+        setActiveLink();
+
+        // WhatsApp Functions
         function enquirePrice(code, productName) {
             const message = `Hi, I'm interested in ${productName} (Code: ${code}). Please send me the pricing and availability details.`;
             const whatsappUrl = `https://wa.me/919837177383?text=${encodeURIComponent(message)}`;
@@ -1264,6 +2294,12 @@
 
         function openWhatsApp() {
             const message = `Hi Porwal Glass Industries! I'm interested in your premium glassware and kitchenware products. Can you please share the complete catalogue and pricing details?`;
+            const whatsappUrl = `https://wa.me/919837177383?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function openQuoteRequest() {
+            const message = `Hi Porwal Glass Industries! I would like to request a quote for your products. Please contact me at your earliest convenience.`;
             const whatsappUrl = `https://wa.me/919837177383?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         }

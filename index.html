@@ -50,22 +50,22 @@
             top: 0;
             z-index: 100;
             box-shadow: var(--shadow-sm);
-            height: 70px;
+            height: 80px;
         }
 
         .header-wrapper {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 2rem;
+            gap: 0.8rem;
             height: 100%;
         }
 
         .logo {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: var(--primary);
             letter-spacing: -0.5px;
@@ -84,6 +84,12 @@
 
         .logo span {
             color: var(--accent);
+        }
+
+        .logo-svg {
+            height: 65px;
+            width: auto;
+            max-width: 500px;
         }
 
         .nav-menu {
@@ -449,7 +455,7 @@
 
         /* ===== CONTAINER ===== */
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 30px;
         }
@@ -909,8 +915,11 @@
 
             .header-wrapper {
                 flex-wrap: wrap;
-                gap: 1rem;
+                gap: 0.5rem;
                 padding: 1rem 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
             }
 
             .hamburger {
@@ -921,16 +930,18 @@
             .logo {
                 font-size: 1.4rem;
                 order: 1;
-                flex: 1;
+                flex: 0 1 auto;
+                min-width: fit-content;
             }
 
             .header-actions {
                 order: 2;
                 width: 100%;
                 margin-bottom: 1rem;
-                gap: 1rem;
+                gap: 0.5rem;
                 display: flex;
                 align-items: center;
+                flex-wrap: nowrap;
             }
 
             .search-box {
@@ -945,6 +956,7 @@
 
             .search-toggle {
                 display: block;
+                order: 1;
             }
 
             .btn-primary {
@@ -1161,7 +1173,26 @@
     <!-- HEADER -->
     <header>
         <div class="header-wrapper">
-            <a href="#" class="logo">PORWAL&nbsp;GLASS&nbsp;<span>INDUSTRIES</span></a>
+            <a href="#" class="logo">
+                <svg viewBox="0 0 1400 240" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+                    <rect width="1400" height="240" fill="#FFF"/>
+                    <!-- PGI Icon - Properly positioned and not truncated -->
+                    <g transform="translate(100,80)">
+                        <!-- P - stem and base -->
+                        <path d="M-50,10Q-50,3-43,3h16q5,0,5,5v100q0,5-5,5h-16q-7,0-7-5Z" fill="#1B5E47"/>
+                        <path d="M-27,13q0-5,5-5h23q18,0,18,18t-18,18h-23q-5,0-5-5Z" fill="#1B5E47"/>
+                        <!-- G - glass bowl -->
+                        <path d="M10,2q5,0,10,2Q55,14,65,45q3,15,3,33v12q0,18-12,27l-33,0q-5,0-5-5v-5q0-5,5-5h25q5,0,5-5V82q0-5-5-5H31q-5,0-5-5v-5q5,0,5-5h15q3,0,3-3-1-17-11-28-12-12-25-16-5-1-5-7V5q0-3,6-3Z" fill="#1B5E47"/>
+                        <!-- I - stem -->
+                        <path d="M23,117q0-5,5-5h5q5,0,5,5v33q0,5-5,5h-5q-5,0-5-5Z" fill="#1B5E47"/>
+                        <ellipse cx="29" cy="157" rx="27" ry="5" fill="#1B5E47"/>
+                        <!-- Bowl shine -->
+                        <path d="M25,17q8,5,13,17" fill="none" stroke="#FFF" stroke-width="2" opacity="0.35" stroke-linecap="round"/>
+                    </g>
+                    <!-- Text - Aligned with icon center -->
+                    <text x="230" y="155" font-family="'Montserrat', 'Arial Black', sans-serif" font-size="55" font-weight="700" fill="#1B5E47" letter-spacing="1">PORWAL GLASS <tspan fill="#C9996B">INDUSTRIES</tspan></text>
+                </svg>
+            </a>
             <nav class="nav-menu" id="navMenu">
                 <li class="nav-item dropdown" id="categoriesDropdown">
                     <a href="#" class="nav-link dropdown-toggle" onclick="toggleDropdown(event)">Products</a>

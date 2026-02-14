@@ -453,6 +453,106 @@
             flex-wrap: wrap;
         }
 
+        /* Instagram Feed Styles */
+        .hero-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        .instagram-feed {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            animation: fadeInRight 1s ease-out 0.3s both;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .instagram-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .instagram-follow-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .instagram-follow-link:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .instagram-follow-link i {
+            font-size: 1.2rem;
+        }
+
+        /* Fade in right animation */
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 1023px) {
+            .instagram-feed {
+                max-height: 400px;
+            }
+        }
+
+        /* Scrollbar styling for Instagram feed */
+        .instagram-feed::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .instagram-feed::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .instagram-feed::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        .instagram-feed::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
         /* ===== CONTAINER ===== */
         .container {
             max-width: 1200px;
@@ -1233,16 +1333,27 @@
 
     <!-- HERO SECTION -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>Premium Glassware & Kitchenware</h1>
-            <p>Quality products for home, hotel, and restaurant - Since 2009</p>
-            <div class="hero-buttons">
-                <button class="btn-primary" onclick="document.getElementById('glassware').scrollIntoView({behavior: 'smooth'})">
-                    <i class="fas fa-shopping-bag"></i> Explore Products
-                </button>
-                <button class="btn-secondary" onclick="openWhatsApp()">
-                    <i class="fas fa-handshake"></i> Bulk Orders
-                </button>
+        <div class="hero-grid">
+            <div class="hero-content">
+                <h1>Premium Glassware & Kitchenware</h1>
+                <p>Quality products for home, hotel, and restaurant - Since 2009</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="document.getElementById('glassware').scrollIntoView({behavior: 'smooth'})">
+                        <i class="fas fa-shopping-bag"></i> Explore Products
+                    </button>
+                    <button class="btn-secondary" onclick="openWhatsApp()">
+                        <i class="fas fa-handshake"></i> Bulk Orders
+                    </button>
+                </div>
+            </div>
+
+            <!-- Instagram Feed Sidebar -->
+            <div class="instagram-feed">
+                <h3 class="instagram-title">Latest from Our Workshop 📸</h3>
+                <div class="embedsocial-hashtag" data-ref="a12b14aab6eb13a7bf1fecc56defa49a86cb91e8"></div>
+                <a href="https://instagram.com/porwalglassindustries" target="_blank" class="instagram-follow-link">
+                    <i class="fab fa-instagram"></i> Follow @porwalglassindustries
+                </a>
             </div>
         </div>
     </section>
@@ -2521,6 +2632,18 @@
         }, observerOptions);
 
         document.querySelectorAll('.stat-item').forEach(item => observer.observe(item));
+    </script>
+
+    <!-- EmbedSocial Instagram Widget Script -->
+    <script>
+        (function(d, s, id) {
+            var js; 
+            if (d.getElementById(id)) {return;} 
+            js = d.createElement(s); 
+            js.id = id; 
+            js.src = "https://embedsocial.com/cdn/ht.js"; 
+            d.getElementsByTagName("head")[0].appendChild(js);
+        }(document, "script", "EmbedSocialHashtagScript"));
     </script>
 </body>
 </html>
